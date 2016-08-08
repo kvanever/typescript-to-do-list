@@ -73,7 +73,22 @@ var ToDoList;
     };
 })(ToDoList || (ToDoList = {}));
 /// <reference path="to-do-classes-interfaces.ts" />
+var ToDoList;
+(function (ToDoList) {
+    ToDoList.describeTasksForPerson = function (assignee, taskcollection) {
+        var descriptions = [];
+        for (var _i = 0, taskcollection_1 = taskcollection; _i < taskcollection_1.length; _i++) {
+            var task = taskcollection_1[_i];
+            if (task.assignedTo === assignee) {
+                descriptions.push(task.description);
+            }
+        }
+        return descriptions;
+    };
+})(ToDoList || (ToDoList = {}));
+/// <reference path="to-do-classes-interfaces.ts" />
 /// <reference path="to-do-people.ts" />
+/// <reference path="./to-do-listing-functions.ts"/>
 var people = ToDoList.people;
 var tasks = [];
 tasks.push(new ToDoList.HomeTask("Do the dishes.", "High"));
@@ -90,4 +105,12 @@ nextDay.setDate(today.getDate() + 2);
 tasks.push(new ToDoList.WorkTask(today, "Update blog.", "High", people.diane));
 tasks.push(new ToDoList.WorkTask(tomorrow, "Go to meeting.", "Medium", people.thor));
 tasks.push(new ToDoList.WorkTask(nextDay, "Clean ceiling.", "Low", people.loki));
+tasks.push(new ToDoList.WorkTask(tomorrow, "Save the world.", "High", people.thor));
+tasks.push(new ToDoList.WorkTask(tomorrow, "Buy a new shirt.", "Low", people.thor));
 console.log(tasks);
+var thorTasks = ToDoList.describeTasksForPerson(people.thor, tasks);
+console.log("These are Thor's tasks: ");
+for (var _i = 0, thorTasks_1 = thorTasks; _i < thorTasks_1.length; _i++) {
+    var task = thorTasks_1[_i];
+    console.log(task);
+}
